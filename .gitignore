@@ -276,3 +276,5 @@ server.pid
 .cache
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,intellij,maven,playframework,java
+
+conf/fabbri-dev.conf
