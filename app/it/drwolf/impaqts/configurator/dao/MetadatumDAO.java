@@ -32,6 +32,8 @@ public class MetadatumDAO {
 		if (metadatum.getId() == null) {
 			em.persist(metadatum);
 			corpus.getMetadata().add(metadatum);
+			metadatum.setCorpus(corpus);
+			metadatum = em.merge(metadatum);
 			em.merge(corpus);
 			return metadatum;
 		}
@@ -66,7 +68,6 @@ public class MetadatumDAO {
 		}
 		metadatum.setId(id);
 		metadatum.setParentMetadatum(persistedMetadatum.getParentMetadatum());
-		metadatum.getMetadatumValues().addAll(persistedMetadatum.getMetadatumValues());
 		return em.merge(metadatum);
 	}
 }

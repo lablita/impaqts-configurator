@@ -39,7 +39,7 @@ public class Corpus implements Serializable {
 		return installations;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "corpus")
 	public Set<Metadatum> getMetadata() {
 		return metadata;
 	}

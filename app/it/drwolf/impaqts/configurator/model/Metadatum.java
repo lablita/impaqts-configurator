@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,14 +19,20 @@ public class Metadatum implements Serializable {
 	private Long id;
 	private String name;
 	private Boolean documentMetadatum = Boolean.TRUE;
-	private Set<MetadatumValue> metadatumValues = new HashSet<>();
 
 	private Integer position;
 
 	private Set<Metadatum> subMetadata = new HashSet<>();
 	private Metadatum parentMetadatum;
-
+	private Corpus corpus;
 	private Boolean multipleChoice = Boolean.FALSE;
+	private Boolean retrieveValuesFromCorpus = Boolean.FALSE;
+
+	@ManyToOne
+	@JsonIgnore
+	public Corpus getCorpus() {
+		return corpus;
+	}
 
 	public Boolean getDocumentMetadatum() {
 		return documentMetadatum;
@@ -37,11 +42,6 @@ public class Metadatum implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
-	}
-
-	@OneToMany(mappedBy = "metadatum", cascade = CascadeType.ALL, orphanRemoval = true)
-	public Set<MetadatumValue> getMetadatumValues() {
-		return metadatumValues;
 	}
 
 	public Boolean getMultipleChoice() {
@@ -62,9 +62,17 @@ public class Metadatum implements Serializable {
 		return position;
 	}
 
+	public Boolean getRetrieveValuesFromCorpus() {
+		return retrieveValuesFromCorpus;
+	}
+
 	@OneToMany(mappedBy = "parentMetadatum")
 	public Set<Metadatum> getSubMetadata() {
 		return subMetadata;
+	}
+
+	public void setCorpus(Corpus corpus) {
+		this.corpus = corpus;
 	}
 
 	public void setDocumentMetadatum(Boolean documentMetadatum) {
@@ -73,10 +81,6 @@ public class Metadatum implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public void setMetadatumValues(Set<MetadatumValue> metadatumValues) {
-		this.metadatumValues = metadatumValues;
 	}
 
 	public void setMultipleChoice(Boolean multipleChoice) {
@@ -93,6 +97,10 @@ public class Metadatum implements Serializable {
 
 	public void setPosition(Integer position) {
 		this.position = position;
+	}
+
+	public void setRetrieveValuesFromCorpus(Boolean retrieveValuesFromCorpus) {
+		this.retrieveValuesFromCorpus = retrieveValuesFromCorpus;
 	}
 
 	public void setSubMetadata(Set<Metadatum> subMetadata) {

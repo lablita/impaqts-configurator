@@ -31,8 +31,3 @@ PATCH   /metadatum/:metadatumId                             it.drwolf.impaqts.co
 
 POST    /metadata-relation/:parentId/:childId               it.drwolf.impaqts.configurator.controllers.MetadatumController.addChildToParentMetadatum(parentId: Long, childId: Long)
 DELETE  /metadata-relation/:parentId/:childId               it.drwolf.impaqts.configurator.controllers.MetadatumController.removeChildFromParentMetadatum(parentId: Long, childId: Long)
-
-GET     /metadatum-value/:metadatumValueId                  it.drwolf.impaqts.configurator.controllers.MetadatumValueController.load(metadatumValueId: Long)
-POST    /metadatum-value/:metadatumId                       it.drwolf.impaqts.configurator.controllers.MetadatumValueController.create(request: Request, metadatumId: Long)
-DELETE  /metadatum-value/:metadatumValueId                  it.drwolf.impaqts.configurator.controllers.MetadatumValueController.delete(metadatumValueId: Long)
-PATCH   /metadatum-value/:metadatumValueId                  it.drwolf.impaqts.configurator.controllers.MetadatumValueController.update(request: Request, metadatumValueId: Long)
