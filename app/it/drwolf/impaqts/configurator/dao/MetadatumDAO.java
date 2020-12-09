@@ -68,6 +68,10 @@ public class MetadatumDAO {
 		}
 		metadatum.setId(id);
 		metadatum.setParentMetadatum(persistedMetadatum.getParentMetadatum());
+		metadatum.setCorpus(persistedMetadatum.getCorpus());
+		metadatum.getSubMetadata().clear();
+		persistedMetadatum.getSubMetadata().forEach(sm -> sm.setParentMetadatum(metadatum));
+		metadatum.getSubMetadata().addAll(persistedMetadatum.getSubMetadata());
 		return em.merge(metadatum);
 	}
 }
