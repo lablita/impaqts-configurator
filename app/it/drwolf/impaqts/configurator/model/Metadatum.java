@@ -27,6 +27,7 @@ public class Metadatum implements Serializable {
 	private Corpus corpus;
 	private Boolean multipleChoice = Boolean.FALSE;
 	private Boolean retrieveValuesFromCorpus = Boolean.FALSE;
+	private Boolean freeText = Boolean.FALSE;
 
 	@ManyToOne
 	@JsonIgnore
@@ -36,6 +37,10 @@ public class Metadatum implements Serializable {
 
 	public Boolean getDocumentMetadatum() {
 		return documentMetadatum;
+	}
+
+	public Boolean getFreeText() {
+		return freeText;
 	}
 
 	@Id
@@ -77,6 +82,10 @@ public class Metadatum implements Serializable {
 
 	public void setDocumentMetadatum(Boolean documentMetadatum) {
 		this.documentMetadatum = documentMetadatum;
+	}
+
+	public void setFreeText(Boolean freeText) {
+		this.freeText = freeText;
 	}
 
 	public void setId(Long id) {
