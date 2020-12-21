@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,48 +33,53 @@ public class Metadatum implements Serializable {
 	@ManyToOne
 	@JsonIgnore
 	public Corpus getCorpus() {
-		return corpus;
+		return this.corpus;
 	}
 
 	public Boolean getDocumentMetadatum() {
-		return documentMetadatum;
+		return this.documentMetadatum;
 	}
 
 	public Boolean getFreeText() {
-		return freeText;
+		return this.freeText;
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
-		return id;
+		return this.id;
 	}
 
 	public Boolean getMultipleChoice() {
-		return multipleChoice;
+		return this.multipleChoice;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	@ManyToOne
 	@JsonIgnore
 	public Metadatum getParentMetadatum() {
-		return parentMetadatum;
+		return this.parentMetadatum;
 	}
 
 	public Integer getPosition() {
-		return position;
+		return this.position;
 	}
 
 	public Boolean getRetrieveValuesFromCorpus() {
-		return retrieveValuesFromCorpus;
+		return this.retrieveValuesFromCorpus;
 	}
 
 	@OneToMany(mappedBy = "parentMetadatum")
 	public Set<Metadatum> getSubMetadata() {
-		return subMetadata;
+		return this.subMetadata;
+	}
+
+	@Transient
+	public boolean isChild() {
+		return this.parentMetadatum != null;
 	}
 
 	public void setCorpus(Corpus corpus) {
