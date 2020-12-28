@@ -55,8 +55,9 @@ public class InstallationDAO {
 
 	public Installation getByName(String installationName, EntityManager em) throws NonUniquenessException {
 		List<Installation> installations = em
-				.createQuery("from Installation i where i.name=:installationName", Installation.class)
-				.setParameter("installationName", installationName).getResultList();
+				.createQuery("from Installation i where i.projectName=:installationName", Installation.class)
+				.setParameter("installationName", installationName)
+				.getResultList();
 		if (installations != null) {
 			if (installations.size() == 1) {
 				return installations.get(0);
