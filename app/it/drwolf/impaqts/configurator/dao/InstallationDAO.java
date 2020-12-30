@@ -68,6 +68,14 @@ public class InstallationDAO {
 		return null;
 	}
 
+	public String getDefaultCss(EntityManager em) throws NonUniquenessException {
+		return this.getByName("DEFAULT", em).getCss();
+	}
+
+	public byte[] getDefaultFavicon(EntityManager em) throws NonUniquenessException {
+		return this.getByName("DEFAULT", em).getFavicon();
+	}
+
 	public Installation load(Long id, EntityManager em) {
 		return em.find(Installation.class, id);
 	}

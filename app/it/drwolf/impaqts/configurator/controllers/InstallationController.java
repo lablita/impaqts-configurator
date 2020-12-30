@@ -1,5 +1,10 @@
 package it.drwolf.impaqts.configurator.controllers;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.inject.Inject;
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -77,6 +82,53 @@ public class InstallationController extends Controller {
 				return Results.ok(Json.toJson(installation));
 			}
 			return Results.notFound(String.format("Installation with name %s not found.", installationName));
+		});
+	}
+
+	public Result getCss(String installationName) {
+		return this.jpaApi.withTransaction("default", true, em -> {
+			File file;
+			try {
+				file = File.createTempFile(installationName, ".css");
+				file.deleteOnExit();
+			} catch (IOException e) {
+				e.printStackTrace();
+				return Results.internalServerError();
+			}
+			Installation installation = null;
+			String defaultCss = null;
+			try {
+				defaultCss = this.installationDAO.getDefaultCss(em);
+				installation = this.installationDAO.getByName(installationName, em);
+			} catch (NonUniquenessException e) {
+				e.printStackTrace();
+			}
+			try {
+				FileWriter writer;
+				writer = new FileWriter(file);
+				writer.write(installation != null ? installation.getCss() : defaultCss);
+				writer.close();
+				return Results.ok(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return Results.internalServerError();
+			}
+		});
+	}
+
+	public Result getFavicon(String installationName) {
+		return this.jpaApi.withTransaction("default", true, em -> {
+			Installation installation = null;
+			byte[] defaultFavicon = null;
+			try {
+				defaultFavicon = this.installationDAO.getDefaultFavicon(em);
+				installation = this.installationDAO.getByName(installationName, em);
+			} catch (NonUniquenessException e) {
+				e.printStackTrace();
+			}
+			return Results
+					.ok(new ByteArrayInputStream(installation != null ? installation.getFavicon() : defaultFavicon))
+					.as("image/jpeg");
 		});
 	}
 

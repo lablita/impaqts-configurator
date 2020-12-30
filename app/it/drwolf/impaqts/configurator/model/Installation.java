@@ -6,7 +6,6 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Installation implements Serializable {
@@ -25,19 +25,15 @@ public class Installation implements Serializable {
 	private String projectSubTitle;
 	private String projectName;
 	private Set<Corpus> corpora = new HashSet<>();
-	private Set<Color> colors = new HashSet<>();
 	private Set<Logo> logos = new HashSet<>();
-	private Set<String> fonts = new HashSet<>();
-	@Lob
+	private String css;
 	private String copyright;
-	@Lob
 	private String credits;
 
-	@OneToMany(mappedBy = "installation", cascade = { CascadeType.ALL })
-	public Set<Color> getColors() {
-		return this.colors;
-	}
+	@Lob
+	private byte[] favicon;
 
+	@Lob
 	public String getCopyright() {
 		return this.copyright;
 	}
@@ -49,14 +45,19 @@ public class Installation implements Serializable {
 		return this.corpora;
 	}
 
+	@Lob
 	public String getCredits() {
 		return this.credits;
 	}
 
-	@ElementCollection
-	@OrderBy
-	public Set<String> getFonts() {
-		return this.fonts;
+	@Lob
+	@JsonIgnore
+	public String getCss() {
+		return this.css;
+	}
+
+	public byte[] getFavicon() {
+		return this.favicon;
 	}
 
 	@Id
@@ -79,10 +80,6 @@ public class Installation implements Serializable {
 		return this.projectSubTitle;
 	}
 
-	public void setColors(Set<Color> colors) {
-		this.colors = colors;
-	}
-
 	public void setCopyright(String copyright) {
 		this.copyright = copyright;
 	}
@@ -95,8 +92,12 @@ public class Installation implements Serializable {
 		this.credits = credits;
 	}
 
-	public void setFonts(Set<String> fonts) {
-		this.fonts = fonts;
+	public void setCss(String css) {
+		this.css = css;
+	}
+
+	public void setFavicon(byte[] favicon) {
+		this.favicon = favicon;
 	}
 
 	public void setId(Long id) {
@@ -114,5 +115,4 @@ public class Installation implements Serializable {
 	public void setProjectSubTitle(String projectSubTitle) {
 		this.projectSubTitle = projectSubTitle;
 	}
-
 }

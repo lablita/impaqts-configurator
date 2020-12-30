@@ -8,6 +8,11 @@ GET     /                           controllers.HomeController.index
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
+#CSS
+GET     /css		                                        it.drwolf.impaqts.configurator.controllers.InstallationController.getCss(installationName: String)
+#FAVICON
+GET     /favicon		                                    it.drwolf.impaqts.configurator.controllers.InstallationController.getFavicon(installationName: String)
+
 GET     /installation                                       it.drwolf.impaqts.configurator.controllers.InstallationController.getByName(installationName: String)
 GET     /installation/:id                                   it.drwolf.impaqts.configurator.controllers.InstallationController.load(id: Long)
 DELETE  /installation/:id                                   it.drwolf.impaqts.configurator.controllers.InstallationController.delete(id: Long)
