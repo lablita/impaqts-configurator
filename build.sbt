@@ -17,6 +17,6 @@ libraryDependencies ++= Seq(
 )
 
 // https://mvnrepository.com/artifact/mysql/mysql-connector-java
-libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.44"
+libraryDependencies += "mysql" % "mysql-connector-java" % "8.0.28"
 
 PlayKeys.externalizeResources := false
