@@ -1,0 +1,38 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+GET     /                           controllers.HomeController.index
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+#CSS
+GET     /css		                                        it.drwolf.impaqts.configurator.controllers.InstallationController.getCss(installationName: String)
+#FAVICON
+GET     /favicon		                                    it.drwolf.impaqts.configurator.controllers.InstallationController.getFavicon(installationName: String)
+
+GET     /installation                                       it.drwolf.impaqts.configurator.controllers.InstallationController.getByName(installationName: String)
+GET     /installation/:id                                   it.drwolf.impaqts.configurator.controllers.InstallationController.load(id: Long)
+DELETE  /installation/:id                                   it.drwolf.impaqts.configurator.controllers.InstallationController.delete(id: Long)
+PATCH   /installation/:id                                   it.drwolf.impaqts.configurator.controllers.InstallationController.update(request: Request, id: Long)
+POST    /installation                                       it.drwolf.impaqts.configurator.controllers.InstallationController.create(request: Request)
+
+POST    /installation-corpus/:installationId/:corpusId      it.drwolf.impaqts.configurator.controllers.InstallationController.addCorpusToInstallation(installationId: Long, corpusId: Long)
+DELETE  /installation-corpus/:installationId/:corpusId      it.drwolf.impaqts.configurator.controllers.InstallationController.removeCorpusFromInstallation(installationId: Long, corpusId: Long)
+
+
+GET     /corpus/:id                                         it.drwolf.impaqts.configurator.controllers.CorpusController.load(id: Long)
+DELETE  /corpus/:id                                         it.drwolf.impaqts.configurator.controllers.CorpusController.delete(id: Long)
+PATCH   /corpus/:id                                         it.drwolf.impaqts.configurator.controllers.CorpusController.update(request: Request, id: Long)
+POST    /corpus                                             it.drwolf.impaqts.configurator.controllers.CorpusController.create(request: Request)
+GET     /metadatum/all/:corpusId                            it.drwolf.impaqts.configurator.controllers.CorpusController.listMetadata(corpusId: Long)
+
+GET     /metadatum/:metadatumId                             it.drwolf.impaqts.configurator.controllers.MetadatumController.load(metadatumId: Long)
+POST    /metadatum/:corpusId                                it.drwolf.impaqts.configurator.controllers.MetadatumController.create(request: Request, corpusId: Long)
+DELETE  /metadatum/:metadatumId                             it.drwolf.impaqts.configurator.controllers.MetadatumController.delete(metadatumId: Long)
+PATCH   /metadatum/:metadatumId                             it.drwolf.impaqts.configurator.controllers.MetadatumController.update(request: Request, metadatumId: Long)
+
+POST    /metadata-relation/:parentId/:childId               it.drwolf.impaqts.configurator.controllers.MetadatumController.addChildToParentMetadatum(parentId: Long, childId: Long)
+DELETE  /metadata-relation/:parentId/:childId               it.drwolf.impaqts.configurator.controllers.MetadatumController.removeChildFromParentMetadatum(parentId: Long, childId: Long)
