@@ -16,6 +16,7 @@ import play.mvc.Results;
 
 public class MetadatumController extends Controller {
 
+	public static final String METADATUM_WITH_ID_NOT_FOUND = "Metadatum with id %d not found.";
 	private final MetadatumDAO metadatumDAO;
 	private final JPAApi jpaApi;
 
@@ -63,7 +64,7 @@ public class MetadatumController extends Controller {
 			if (deletedId != null) {
 				return Results.noContent();
 			}
-			return Results.notFound(String.format("Metadatum with id %d not found.", id));
+			return Results.notFound(String.format(METADATUM_WITH_ID_NOT_FOUND, id));
 		});
 	}
 
@@ -73,7 +74,7 @@ public class MetadatumController extends Controller {
 			if (persistedMetadatum != null) {
 				return Results.ok(Json.toJson(persistedMetadatum));
 			}
-			return Results.notFound(String.format("Metadatum with id %d not found.", id));
+			return Results.notFound(String.format(METADATUM_WITH_ID_NOT_FOUND, id));
 		});
 	}
 
@@ -98,7 +99,7 @@ public class MetadatumController extends Controller {
 		return this.jpaApi.withTransaction(em -> {
 			Metadatum persistedMetadatum = this.metadatumDAO.update(id, metadatum, em);
 			if (persistedMetadatum == null) {
-				return Results.notFound(String.format("Metadatum with id %d not found.", id));
+				return Results.notFound(String.format(METADATUM_WITH_ID_NOT_FOUND, id));
 			}
 			return Results.ok(Json.toJson(persistedMetadatum));
 		});
