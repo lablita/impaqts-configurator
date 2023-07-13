@@ -20,6 +20,8 @@ public class Corpus implements Serializable {
 	private Long id;
 	private String name;
 	private String endpoint;
+
+	private Boolean secureUrl = false;
 	private Set<Installation> installations = new HashSet<>();
 	private Set<Metadatum> metadata = new HashSet<>();
 
@@ -31,6 +33,14 @@ public class Corpus implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return id;
+	}
+
+	public Boolean isSecureUrl() {
+		return secureUrl;
+	}
+
+	public void setSecureUrl(Boolean secureUrl) {
+		this.secureUrl = secureUrl;
 	}
 
 	@ManyToMany(mappedBy = "corpora")
