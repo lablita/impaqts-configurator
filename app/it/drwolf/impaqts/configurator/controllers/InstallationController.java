@@ -22,6 +22,8 @@ import play.mvc.Results;
 
 public class InstallationController extends Controller {
 
+	public static final String INSTALLATION_WITH_ID_NOT_FOUND = "Installation with id %d not found.";
+	public static final String DEFAULT_DATASOURCE = "default";
 	private final InstallationDAO installationDAO;
 	private final JPAApi jpaApi;
 
@@ -65,12 +67,12 @@ public class InstallationController extends Controller {
 			if (deletedId != null) {
 				return Results.noContent();
 			}
-			return Results.notFound(String.format("Installation with id %d not found.", id));
+			return Results.notFound(String.format(INSTALLATION_WITH_ID_NOT_FOUND, id));
 		});
 	}
 
 	public Result getByName(String installationName) {
-		return this.jpaApi.withTransaction("default", true, em -> {
+		return this.jpaApi.withTransaction(DEFAULT_DATASOURCE, true, em -> {
 			Installation installation = null;
 			try {
 				installation = this.installationDAO.getByName(installationName, em);
@@ -86,7 +88,7 @@ public class InstallationController extends Controller {
 	}
 
 	public Result getCss(String installationName) {
-		return this.jpaApi.withTransaction("default", true, em -> {
+		return this.jpaApi.withTransaction(DEFAULT_DATASOURCE, true, em -> {
 			File file;
 			try {
 				file = File.createTempFile(installationName, ".css");
@@ -117,7 +119,7 @@ public class InstallationController extends Controller {
 	}
 
 	public Result getFavicon(String installationName) {
-		return this.jpaApi.withTransaction("default", true, em -> {
+		return this.jpaApi.withTransaction(DEFAULT_DATASOURCE, true, em -> {
 			Installation installation = null;
 			byte[] defaultFavicon = null;
 			try {
@@ -133,12 +135,12 @@ public class InstallationController extends Controller {
 	}
 
 	public Result load(Long id) {
-		return this.jpaApi.withTransaction("default", true, em -> {
+		return this.jpaApi.withTransaction(DEFAULT_DATASOURCE, true, em -> {
 			Installation persistedInstallation = this.installationDAO.load(id, em);
 			if (persistedInstallation != null) {
 				return Results.ok(Json.toJson(persistedInstallation));
 			}
-			return Results.notFound(String.format("Installation with id %d not found.", id));
+			return Results.notFound(String.format(INSTALLATION_WITH_ID_NOT_FOUND, id));
 		});
 	}
 
@@ -159,7 +161,7 @@ public class InstallationController extends Controller {
 		return this.jpaApi.withTransaction(em -> {
 			Installation persistedInstallation = this.installationDAO.update(id, installation, em);
 			if (persistedInstallation == null) {
-				return Results.notFound(String.format("Installation with id %d not found.", id));
+				return Results.notFound(String.format(INSTALLATION_WITH_ID_NOT_FOUND, id));
 			}
 			return Results.ok(Json.toJson(persistedInstallation));
 		});

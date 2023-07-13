@@ -19,6 +19,7 @@ import play.mvc.Results;
 
 public class CorpusController extends Controller {
 
+	public static final String CORPUS_WITH_ID_NOT_FOUND = "Corpus with id %d not found.";
 	private final JPAApi jpaApi;
 	private final CorpusDAO corpusDAO;
 
@@ -51,7 +52,7 @@ public class CorpusController extends Controller {
 			if (deletedId != null) {
 				return Results.noContent();
 			}
-			return Results.notFound(String.format("Corpus with id %d not found.", id));
+			return Results.notFound(String.format(CORPUS_WITH_ID_NOT_FOUND, id));
 		});
 	}
 
@@ -68,7 +69,7 @@ public class CorpusController extends Controller {
 			if (persistedCorpus != null) {
 				return Results.ok(Json.toJson(persistedCorpus));
 			}
-			return Results.notFound(String.format("Corpus with id %d not found.", id));
+			return Results.notFound(String.format(CORPUS_WITH_ID_NOT_FOUND, id));
 		});
 	}
 
@@ -78,7 +79,7 @@ public class CorpusController extends Controller {
 		return this.jpaApi.withTransaction(em -> {
 			Corpus persistedCorpus = this.corpusDAO.update(id, corpus, em);
 			if (persistedCorpus == null) {
-				return Results.notFound(String.format("Corpus with id %d not found.", id));
+				return Results.notFound(String.format(CORPUS_WITH_ID_NOT_FOUND, id));
 			}
 			return Results.ok(Json.toJson(persistedCorpus));
 		});

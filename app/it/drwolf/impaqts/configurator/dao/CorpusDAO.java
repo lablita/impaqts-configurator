@@ -36,7 +36,7 @@ public class CorpusDAO {
 
 	public List<Metadatum> listMetadata(Long corpusId, EntityManager em) {
 		Corpus corpus = this.load(corpusId, em);
-		if (corpus != null && corpus.getMetadata().size() > 0) {
+		if (corpus != null && !corpus.getMetadata().isEmpty()) {
 			List<Metadatum> metadata = new ArrayList<>();
 			metadata.addAll(corpus.getMetadata().stream().filter(metadatum -> metadatum.getParentMetadatum() == null)
 					.collect(Collectors.toList()));

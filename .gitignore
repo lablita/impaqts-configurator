@@ -54,7 +54,7 @@ Thumbs.db
 
 ### Eclipse ###
 .metadata
-bin/
+bin/*
 tmp/
 *.tmp
 *.bak
@@ -276,5 +276,11 @@ server.pid
 .cache
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse,intellij,maven,playframework,java
+.g8/
+sbtopts
+sbtconfig.txt
+!sbt/bin/*
+.project
+.classpath
 
-conf/fabbri-dev.conf
+.scannerwork
