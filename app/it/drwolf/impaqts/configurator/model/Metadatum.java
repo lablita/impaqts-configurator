@@ -30,6 +30,16 @@ public class Metadatum implements Serializable {
 	private Boolean retrieveValuesFromCorpus = Boolean.FALSE;
 	private Boolean freeText = Boolean.FALSE;
 
+	private Boolean defaultAttribute = Boolean.FALSE;
+
+	public Boolean getDefaultAttribute() {
+		return defaultAttribute;
+	}
+
+	public void setDefaultAttribute(Boolean defaultAttribute) {
+		this.defaultAttribute = defaultAttribute;
+	}
+
 	@ManyToOne
 	@JsonIgnore
 	public Corpus getCorpus() {
