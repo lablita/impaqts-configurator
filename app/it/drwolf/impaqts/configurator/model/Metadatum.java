@@ -1,8 +1,6 @@
 package it.drwolf.impaqts.configurator.model;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,8 +9,9 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Metadatum implements Serializable {
@@ -29,11 +28,17 @@ public class Metadatum implements Serializable {
 	private Boolean multipleChoice = Boolean.FALSE;
 	private Boolean retrieveValuesFromCorpus = Boolean.FALSE;
 	private Boolean freeText = Boolean.FALSE;
+	private Boolean defaultAttribute = Boolean.FALSE;
+	private String label;
 
 	@ManyToOne
 	@JsonIgnore
 	public Corpus getCorpus() {
 		return this.corpus;
+	}
+
+	public Boolean getDefaultAttribute() {
+		return defaultAttribute;
 	}
 
 	public Boolean getDocumentMetadatum() {
@@ -48,6 +53,10 @@ public class Metadatum implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return this.id;
+	}
+
+	public String getLabel() {
+		return label;
 	}
 
 	public Boolean getMultipleChoice() {
@@ -86,6 +95,10 @@ public class Metadatum implements Serializable {
 		this.corpus = corpus;
 	}
 
+	public void setDefaultAttribute(Boolean defaultAttribute) {
+		this.defaultAttribute = defaultAttribute;
+	}
+
 	public void setDocumentMetadatum(Boolean documentMetadatum) {
 		this.documentMetadatum = documentMetadatum;
 	}
@@ -96,6 +109,10 @@ public class Metadatum implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	public void setMultipleChoice(Boolean multipleChoice) {
