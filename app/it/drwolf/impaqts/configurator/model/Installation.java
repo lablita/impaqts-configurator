@@ -1,8 +1,6 @@
 package it.drwolf.impaqts.configurator.model;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,8 +13,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Installation implements Serializable {
@@ -29,6 +28,7 @@ public class Installation implements Serializable {
 	private String css;
 	private String copyright;
 	private String credits;
+	private Boolean impaqts;
 
 	@Lob
 	private byte[] favicon;
@@ -64,6 +64,10 @@ public class Installation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getId() {
 		return this.id;
+	}
+
+	public Boolean getImpaqts() {
+		return impaqts;
 	}
 
 	@OneToMany(mappedBy = "installation", cascade = { CascadeType.ALL })
@@ -102,6 +106,10 @@ public class Installation implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public void setImpaqts(Boolean impaqts) {
+		this.impaqts = impaqts;
 	}
 
 	public void setLogos(Set<Logo> logos) {
