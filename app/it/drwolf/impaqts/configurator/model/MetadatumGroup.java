@@ -11,6 +11,7 @@ public class MetadatumGroup implements Serializable {
 
 	private Long id;
 	private String name;
+	private Integer position;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,11 +23,19 @@ public class MetadatumGroup implements Serializable {
 		return name;
 	}
 
+	public Integer getPosition() {
+		return position;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setPosition(Integer position) {
+		this.position = position;
 	}
 }
