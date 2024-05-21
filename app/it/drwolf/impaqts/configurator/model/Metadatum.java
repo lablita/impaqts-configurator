@@ -30,6 +30,7 @@ public class Metadatum implements Serializable {
 	private Boolean freeText = Boolean.FALSE;
 	private Boolean defaultAttribute = Boolean.FALSE;
 	private String label;
+	private MetadatumGroup metadatumGroup;
 
 	@ManyToOne
 	@JsonIgnore
@@ -57,6 +58,11 @@ public class Metadatum implements Serializable {
 
 	public String getLabel() {
 		return label;
+	}
+
+	@ManyToOne
+	public MetadatumGroup getMetadatumGroup() {
+		return metadatumGroup;
 	}
 
 	public Boolean getMultipleChoice() {
@@ -113,6 +119,10 @@ public class Metadatum implements Serializable {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public void setMetadatumGroup(MetadatumGroup metadatumGroup) {
+		this.metadatumGroup = metadatumGroup;
 	}
 
 	public void setMultipleChoice(Boolean multipleChoice) {
